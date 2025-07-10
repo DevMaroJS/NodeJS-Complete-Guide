@@ -1,7 +1,9 @@
 import http from "http";
-import routes from "./routes.js";
+import express from "express";
 
-const server = http.createServer(routes);
+const app = express();
+
+const server = http.createServer(app);
 
 server.listen(3000, () => {
   console.log("Server running at http://localhost:3000/");
