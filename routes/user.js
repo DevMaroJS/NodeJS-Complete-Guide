@@ -1,15 +1,12 @@
 import express from "express";
+import { login, logout, getSelf } from "../controllers/user.js";
 
 const userRoutes = express.Router();
 
-userRoutes.get("/login", (req, res) => {
-  console.log(req.body);
-  res.send(`<h1>Login</h1>`);
-});
+userRoutes.post("/login", login);
 
-userRoutes.get("/logout", (req, res) => {
-  console.log(req.body);
-  res.send(`<h1>Logout</h1>`);
-});
+userRoutes.post("/logout", logout);
+
+userRoutes.get("/self", getSelf);
 
 export default userRoutes;

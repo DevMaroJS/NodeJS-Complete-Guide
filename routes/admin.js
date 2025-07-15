@@ -1,15 +1,10 @@
 import express from "express";
+import { profile, settings } from "../controllers/admin.js";
 
 const adminRoutes = express.Router();
 
-adminRoutes.get("/profile", (req, res) => {
-  console.log(req.body);
-  res.send(`<h1>Profile</h1>`);
-});
+adminRoutes.get("/profile", profile);
 
-adminRoutes.get("/settings", (req, res) => {
-  console.log(req.body);
-  res.send(`<h1>Settings</h1>`);
-});
+adminRoutes.get("/settings", settings);
 
 export default adminRoutes;
