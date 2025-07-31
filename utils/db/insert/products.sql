@@ -1,0 +1,1 @@
+INSERT INTO products (title, price, imageUrl) VALUES ('Nokia 5200', 250, 'https://img.nieuwemobiel.nl/nokia_5200-5b7310dfafc41.jpg') 

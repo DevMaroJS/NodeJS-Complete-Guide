@@ -3,7 +3,6 @@ import express from "express";
 import routes from "./routes/main.js";
 
 const app = express();
-
 const server = http.createServer(app);
 
 const parseJSON = express.json({ limit: "5mb" });
