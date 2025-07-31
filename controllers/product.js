@@ -1,13 +1,14 @@
-import pool from "../utils/database.js";
+import Product from "../models/product.js";
 
 export const createProduct = async (req, res) => {
   const body = req.body;
 
   try {
-    await pool.execute(
-      "INSERT INTO products (title, price, imageUrl) VALUES (?, ?, ?)",
-      [body.title, body.price, body.imageUrl]
-    );
+    await Product.create({
+      title: body.title,
+      price: body.price,
+      imageUrl: body.imageUrl,
+    });
     return res.json({ message: "Product created" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -16,7 +17,7 @@ export const createProduct = async (req, res) => {
 
 export const getProducts = async (req, res) => {
   try {
-    const [products] = await pool.execute("SELECT * FROM products");
+    const products = await Product.findAll();
     return res.json({ data: products });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -28,13 +29,16 @@ export const updateProduct = async (req, res) => {
   const body = req.body;
 
   try {
-    const [product] = await pool.execute(
-      "UPDATE products SET title = ?, price = ?, imageUrl = ? WHERE id = ?",
-      [body.title, body.price, body.imageUrl, id]
-    );
-    if (!product.affectedRows) {
+    const product = await Product.findByPk(id);
+    if (!product) {
       return res.json({ message: "Product not found" });
     }
+
+    await product.update({
+      title: body.title,
+      price: body.price,
+      imageUrl: body.imageUrl,
+    });
     return res.json({ message: "Product updated" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -44,12 +48,11 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   const id = req.params.id;
   try {
-    const [product] = await pool.execute("DELETE FROM products WHERE id = ?", [
-      id,
-    ]);
-    if (!product.affectedRows) {
+    const product = await Product.findByPk(id);
+    if (!product) {
       return res.json({ message: "Product not found" });
     }
+    await product.destroy();
     return res.json({ message: "Product deleted" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -60,14 +63,11 @@ export const getProduct = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const [product] = await pool.execute(
-      "SELECT * FROM products WHERE id = ?",
-      [id]
-    );
-    if (!product[0]) {
+    const product = await Product.findByPk(id);
+    if (!product) {
       return res.json({ message: "Product not found" });
     }
-    return res.json({ data: product[0] });
+    return res.json({ data: product });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
