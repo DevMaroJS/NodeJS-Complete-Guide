@@ -8,6 +8,7 @@ export const createProduct = async (req, res) => {
       title: body.title,
       price: body.price,
       imageUrl: body.imageUrl,
+      userId: req.user.id, // Assuming the user is authenticated and req.user is set
     });
     return res.json({ message: "Product created" });
   } catch (error) {
