@@ -1,7 +1,7 @@
 import { session } from "../routes/main.js";
 
 export const login = (req, res) => {
-  if (session.email) {
+  if (req.email) {
     return res.status(400).json({ error: "Session active" });
   }
 
