@@ -18,6 +18,6 @@ cartRoutes.delete("/clear", clearCart);
 cartRoutes.post("/item/add", addItemToCart);
 cartRoutes.get("/item", getCartItems);
 cartRoutes.put("/item/update", updateCartItemQuantity);
-cartRoutes.delete("/item/remove", removeItemFromCart);
+cartRoutes.delete("/item/:id", removeItemFromCart);
 
 export default cartRoutes;
