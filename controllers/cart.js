@@ -62,10 +62,12 @@ export const addItemToCart = async (req, res) => {
     const products = await cart.getProducts();
     cart.products = products;
 
+    const message = existingProduct
+      ? "Item updated in your cart"
+      : "Item added in your cart";
+
     return res.status(201).json({
-      message: existingProduct
-        ? "Item updated in your cart"
-        : "Item added in your cart",
+      message,
       data: {
         ...cart.dataValues,
         products: products.map((product) => ({
