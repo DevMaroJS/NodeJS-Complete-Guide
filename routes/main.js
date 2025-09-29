@@ -3,6 +3,7 @@ import user from "./user.js";
 import admin from "./admin.js";
 import product from "./product.js";
 import cart from "./cart.js";
+import order from "./order.js";
 import { notFound } from "../controllers/notFound.js";
 
 const routes = express.Router();
@@ -13,6 +14,7 @@ routes.use("/user", user);
 routes.use("/product", product);
 routes.use("/product", product);
 routes.use("/cart", cart);
+routes.use("/order", order);
 routes.use(notFound);
 
 export default routes;

@@ -1,5 +1,3 @@
-import e from "express";
-import Cart from "../models/cart.js";
 import Product from "../models/product.js";
 
 export const getCart = async (req, res) => {
